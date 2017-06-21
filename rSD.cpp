@@ -7,8 +7,11 @@ namespace B4R {
 	bool B4RSD::Initialize(Byte CSPin) {
 		return SD.begin(CSPin);
 	}
-
-	bool B4RSD::open (B4RString* FileName, Int mode) {
+#if ESP32
+	bool B4RSD::open(B4RString* FileName, const char* mode) {
+#else
+	bool B4RSD::open(B4RString* FileName, Byte mode) {
+#endif
 		b4rfile.file.close();
 		b4rfile.file = SD.open(FileName->data, mode);
 		if (b4rfile.file == true) {

@@ -3,7 +3,7 @@
 //~dependson: <SPI.h>
 //~dependson: <SD.h>
 namespace B4R {
-	//~Version: 1.03
+	//~Version: 1.10
 	//~shortname: File
 	class B4RFile {
 		private:
@@ -36,7 +36,11 @@ namespace B4R {
 		private:
 			B4RFile b4rfile;
 			B4RStream stream;
-			bool open(B4RString* FileName, Int mode);
+#if ESP32
+			bool open(B4RString* FileName, const char* mode);
+#else
+			bool open(B4RString* FileName, Byte mode);
+#endif
 		public:
 			//~hide
 			B4RSD();
